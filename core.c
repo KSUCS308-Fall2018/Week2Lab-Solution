@@ -132,6 +132,14 @@ int factorial(int n) {
 //
 // This pattern should continue for any given height
 //
+// The provided code currently prints out out a rectangle and needs to be updated
+// to print out the correct shape.
+//
+// Use
+//     make main
+//     ./main
+// to test what the function is currently printing out
+//
 void print_diamond(int height) {
     for (int i = 0; i < height; i++) {
         for (int j = (height - i); j <= height; j++) {
