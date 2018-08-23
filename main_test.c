@@ -65,7 +65,7 @@ static char * test_factorial() {
     return 0;
 }
 
-static char * test_stairs() {
+static char * test_diamond_5() {
     char * output = "output.txt";
 
     int stdout_fd = hijack_stdio(output);
@@ -82,6 +82,8 @@ static char * test_stairs() {
 
     fread(printed, sizeof(char), 40, fp);
 
+    fclose(fp);
+
     // Mark the end of a string
     printed[40] = '\0';
 
@@ -95,11 +97,77 @@ static char * test_stairs() {
     return 0;
 }
 
+static char * test_diamond_1() {
+    char * output = "output.txt";
+
+    int stdout_fd = hijack_stdio(output);
+
+    print_diamond(1);
+
+    reset_hijack_stdio(stdout_fd);
+
+    FILE * fp = fopen(output, "r");
+
+    mu_assert("print_diamond(1) should print out 4 characters", file_length(fp) == 4);
+
+    char printed[4 + 1];
+
+    fread(printed, sizeof(char), 4, fp);
+
+    fclose(fp);
+
+    // Mark the end of a string
+    printed[4] = '\0';
+
+    printf("%s\n", printed);
+
+    mu_assert(
+            "print_diamond(1) printed out the incorrect text",
+            strcmp(printed, "*\n*\n") == 0
+            );
+
+    return 0;
+}
+
+static char * test_diamond_10() {
+    char * output = "output.txt";
+
+    int stdout_fd = hijack_stdio(output);
+
+    print_diamond(10);
+
+    reset_hijack_stdio(stdout_fd);
+
+    FILE * fp = fopen(output, "r");
+
+    mu_assert("print_diamond(10) should print out 130 characters", file_length(fp) == 130);
+
+    char printed[130 + 1];
+
+    fread(printed, sizeof(char), 130, fp);
+
+    fclose(fp);
+
+    // Mark the end of a string
+    printed[130] = '\0';
+
+    printf("%s\n", printed);
+
+    mu_assert(
+            "print_diamond(10) printed out the incorrect text",
+            strcmp(printed, "*\n**\n***\n****\n*****\n******\n*******\n********\n*********\n**********\n**********\n*********\n********\n*******\n******\n*****\n****\n***\n**\n*\n") == 0
+            );
+
+    return 0;
+}
+
 static char * all_tests() {
     mu_run_test(test_letter_grade);
     mu_run_test(test_department_name);
     mu_run_test(test_factorial);
-    mu_run_test(test_stairs);
+    mu_run_test(test_diamond_1);
+    mu_run_test(test_diamond_5);
+    mu_run_test(test_diamond_10);
     return 0;
 }
 
