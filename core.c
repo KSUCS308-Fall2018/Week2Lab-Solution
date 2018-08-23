@@ -6,6 +6,8 @@
 //  Copyright © 2018 Ashley Coleman. All rights reserved.
 //
 
+#include <stdio.h>
+
 #include "core.h"
 
 // This function should calculate the letter
@@ -96,5 +98,53 @@ int factorial(int n) {
     }
 
     return out;
+}
+
+
+// This function should print out a diamond to the screen.
+// The diamond has a different height based on the provided
+// height value. Examples of expected output are listed below
+//
+// if height == 1 then
+//
+// *
+// *
+//
+// if height == 2 then
+//
+// *
+// **
+// **
+// *
+//
+// if height == 5 then
+//
+// *
+// **
+// ***
+// ****
+// *****
+// *****
+// ****
+// ***
+// **
+// *
+//
+// This pattern should continue for any given height
+//
+void print_diamond(int height) {
+    for (int i = 0; i < height; i++) {
+        for (int j = (height - i); j <= height; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+
+    for (int i = 0; i < height; i++) {
+        for (int j = i; j < height; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
 }
 
